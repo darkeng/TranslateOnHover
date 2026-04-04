@@ -1,0 +1,270 @@
+// State and Settings
+let settings = {
+  modifier: 'ctrl',
+  targetLang: 'es',
+  provider: 'google',
+  deeplKey: '',
+  customUrl: ''
+};
+
+let tooltipElement = null;
+let tooltipContent = null;
+let currentText = '';
+let isHoveringSelection = false;
+let mouseX = 0;
+let mouseY = 0;
+let hideTimeout = null;
+
+// Initialization
+function init() {
+  // Load settings
+  chrome.storage.sync.get(settings, (loadedSettings) => {
+    settings = { ...settings, ...loadedSettings };
+  });
+
+  // Listen for setting changes
+  chrome.storage.onChanged.addListener((changes) => {
+    for (let [key, { newValue }] of Object.entries(changes)) {
+      settings[key] = newValue;
+    }
+  });
+
+  // Create tooltip DOM
+  createTooltip();
+
+  // Event Listeners
+  document.addEventListener('mousemove', handleMouseMove);
+  document.addEventListener('selectionchange', handleSelectionChange);
+  document.addEventListener('mousedown', () => hideTooltip());
+  document.addEventListener('keyup', handleKeyUp);
+}
+
+function createTooltip() {
+  tooltipElement = document.createElement('div');
+  tooltipElement.className = 'toh-tooltip-wrapper';
+  
+  const tooltipInner = document.createElement('div');
+  tooltipInner.className = 'toh-tooltip';
+  
+  tooltipContent = document.createElement('div');
+  tooltipContent.className = 'toh-tooltip-content';
+  
+  tooltipInner.appendChild(tooltipContent);
+  tooltipElement.appendChild(tooltipInner);
+  
+  document.body.appendChild(tooltipElement);
+}
+
+// Logic to check modifiers
+function checkModifier(e) {
+  if (settings.modifier === 'none') return true;
+  if (settings.modifier === 'ctrl') return e.ctrlKey;
+  if (settings.modifier === 'shift') return e.shiftKey;
+  if (settings.modifier === 'alt') return e.altKey;
+  if (settings.modifier === 'ctrl+shift') return e.ctrlKey && e.shiftKey;
+  return false;
+}
+
+// Get text under cursor (either selected text or nearest sentence)
+function getHoverText(x, y) {
+  const selection = window.getSelection();
+  if (selection && selection.rangeCount > 0 && selection.toString().trim() !== '') {
+    const range = selection.getRangeAt(0);
+    const rects = range.getClientRects();
+    for (let i = 0; i < rects.length; i++) {
+      const rect = rects[i];
+      const padding = 5;
+      if (
+        x >= rect.left - padding && x <= rect.right + padding &&
+        y >= rect.top - padding && y <= rect.bottom + padding
+      ) {
+        return { isHovering: true, text: selection.toString().trim() };
+      }
+    }
+  }
+  
+  // No active selection hovered, look for text under cursor
+  let range;
+  if (document.caretRangeFromPoint) {
+    range = document.caretRangeFromPoint(x, y);
+  } else if (document.caretPositionFromPoint) {
+    let pos = document.caretPositionFromPoint(x, y);
+    if (pos) {
+      range = document.createRange();
+      range.setStart(pos.offsetNode, pos.offset);
+      range.collapse(true);
+    }
+  }
+
+  if (range && range.startContainer) {
+    const node = range.startContainer;
+    
+    if (node.nodeType === 3) { // Node.TEXT_NODE
+      const text = node.nodeValue;
+      const offset = range.startOffset;
+
+      const regex = /[\.\n;!\?]/g;
+      let match;
+      let start = 0;
+      let end = text.length;
+
+      while ((match = regex.exec(text)) !== null) {
+        if (match.index < offset) {
+          start = match.index + 1;
+        } else if (match.index >= offset && end === text.length) {
+          end = match.index + 1;
+          break;
+        }
+      }
+
+      const sentence = text.substring(start, end).trim();
+      if (sentence.length > 0) {
+        return { isHovering: true, text: sentence };
+      }
+    } else if (node.innerText) {
+      const val = node.innerText.trim();
+      if (val.length > 0 && val.length < 200) {
+        return { isHovering: true, text: val };
+      }
+    }
+  }
+  
+  return { isHovering: false, text: '' };
+}
+
+function handleKeyUp(e) {
+  if (settings.modifier === 'none') return;
+  if (tooltipElement && tooltipElement.classList.contains('toh-visible')) {
+    if (!checkModifier(e)) {
+      hideTooltip();
+    }
+  }
+}
+
+function handleMouseMove(e) {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  // Optimization: Only compute caret range if modifier is pressed
+  if (!checkModifier(e)) {
+    if (tooltipElement.classList.contains('toh-visible')) {
+      hideTooltipDebounced();
+    }
+    return;
+  }
+
+  const hoverState = getHoverText(mouseX, mouseY);
+  isHoveringSelection = hoverState.isHovering;
+
+  if (isHoveringSelection) {
+    if (hoverState.text !== currentText) {
+      // Prevent rapid re-firing
+      if (tooltipElement.classList.contains('toh-visible') && hoverState.text === currentText) return;
+      
+      currentText = hoverState.text;
+      showLoading(e.pageX, e.pageY);
+      requestTranslation(currentText);
+    }
+  } else {
+    // Moved cursor away from selection/text
+    if (tooltipElement.classList.contains('toh-visible')) {
+      hideTooltipDebounced();
+    }
+  }
+}
+
+function handleSelectionChange() {
+  const selection = window.getSelection();
+  if (!selection || selection.toString().trim() === '') {
+    hideTooltip();
+    currentText = '';
+  }
+}
+
+function showLoading(x, y) {
+  clearTimeout(hideTimeout);
+  tooltipContent.innerHTML = `
+    <div class="toh-loading">
+      <div class="toh-dot"></div>
+      <div class="toh-dot"></div>
+      <div class="toh-dot"></div>
+    </div>
+  `;
+  positionTooltip(x, y);
+  tooltipElement.classList.add('toh-visible');
+}
+
+function positionTooltip(x, y) {
+  // x, y are absolute document coordinates (pageX, pageY)
+  // Ensure we don't bleed off screen
+  const rect = tooltipElement.getBoundingClientRect();
+  let left = x + 15; // Offset from cursor
+  let top = y + 20;
+
+  // Horizontal bounds
+  if (left + rect.width > window.innerWidth + window.scrollX - 20) {
+    left = window.innerWidth + window.scrollX - rect.width - 20;
+  }
+  
+  // Vertical bounds
+  if (top + rect.height > window.innerHeight + window.scrollY - 20) {
+    // Show above cursor
+    top = y - rect.height - 15;
+  }
+
+  tooltipElement.style.left = `${left}px`;
+  tooltipElement.style.top = `${top}px`;
+}
+
+function hideTooltip() {
+  tooltipElement.classList.remove('toh-visible');
+  currentText = ''; // Allow re-translation of same text later
+}
+
+function hideTooltipDebounced() {
+  // Add a small delay so moving mouse off selection by 1 pixel doesn't immediately hide
+  clearTimeout(hideTimeout);
+  hideTimeout = setTimeout(() => {
+    if (!isHoveringSelection) hideTooltip();
+  }, 400); 
+}
+
+function requestTranslation(text) {
+  chrome.runtime.sendMessage(
+    { action: 'translate', text: text, settings: settings },
+    (response) => {
+      // Check if user has already moved on
+      if (currentText !== text) return;
+      
+      if (!response) {
+        showError(chrome.i18n.getMessage('errorContext') || 'Extension context invalidated. Refresh page.');
+        return;
+      }
+
+      if (response.success) {
+        showResult(response.result);
+        // Reposition after content loads since size may change
+        positionTooltip(mouseX + window.scrollX, mouseY + window.scrollY);
+      } else {
+        showError(response.error);
+      }
+    }
+  );
+}
+
+function showResult(text) {
+  tooltipContent.innerHTML = text;
+  tooltipContent.className = 'toh-tooltip-content';
+}
+
+function showError(errText) {
+  tooltipContent.innerHTML = errText;
+  tooltipContent.className = 'toh-tooltip-content toh-tooltip-error';
+}
+
+// Ensure init doesn't break if placed in `<head>`
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
