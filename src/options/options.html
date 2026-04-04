@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="optionsTitle">Translate On Hover</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.43 4 16.05 4 12C4 7.95 7.05 4.57 11 4.07V19.93ZM13 4.07C16.95 4.57 20 7.95 20 12C20 16.05 16.95 19.43 13 19.93V4.07Z" fill="currentColor"/>
+          <path d="M17 11H13V7H11V11H7V13H11V17H13V13H17V11Z" fill="currentColor"/>
+        </svg>
+        <h1 data-i18n="appName">Translate On Hover</h1>
+      </div>
+      <p data-i18n="optionsDesc">Configure your translation preferences and modifiers.</p>
+    </header>
+
+    <main>
+      <form id="settings-form">
+        
+        <section class="card glass">
+          <h2 data-i18n="interactionSettings">Interaction Settings</h2>
+          
+          <div class="form-group">
+            <label for="modifier" data-i18n="modifierKey">Modifier Key</label>
+            <select id="modifier" name="modifier">
+              <option value="none" data-i18n="modifierNone">None (Always translate on hover)</option>
+              <option value="ctrl">Ctrl</option>
+              <option value="shift">Shift</option>
+              <option value="alt">Alt</option>
+              <option value="ctrl+shift">Ctrl + Shift</option>
+            </select>
+            <span class="hint" data-i18n="modifierHint">Hold this key while hovering over text to translate.</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="targetLang" data-i18n="targetLanguage">Target Language</label>
+            <select id="targetLang" name="targetLang">
+              <option value="es" data-i18n="langSpanish">Spanish</option>
+              <option value="en" data-i18n="langEnglish">English</option>
+              <option value="fr" data-i18n="langFrench">French</option>
+              <option value="de" data-i18n="langGerman">German</option>
+              <option value="it" data-i18n="langItalian">Italian</option>
+              <option value="pt" data-i18n="langPortuguese">Portuguese</option>
+              <option value="ja" data-i18n="langJapanese">Japanese</option>
+              <option value="ko" data-i18n="langKorean">Korean</option>
+              <option value="zh-CN" data-i18n="langChinese">Chinese (Simplified)</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="card glass">
+          <h2 data-i18n="translationProvider">Translation Provider</h2>
+          
+          <div class="form-group">
+            <label data-i18n="serviceLabel">Service</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="provider" value="google" checked>
+                <div class="radio-card">Google Translate <span data-i18n="googleFree">(Free)</span></div>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="provider" value="deepl">
+                <div class="radio-card">DeepL <span data-i18n="deeplRequired">(API Key Required)</span></div>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="provider" value="custom">
+                <div class="radio-card" data-i18n="customApi">Custom API</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- DeepL Settings -->
+          <div id="deepl-settings" class="provider-settings hidden">
+            <div class="form-group">
+              <label for="deeplKey" data-i18n="deeplKeyLabel">DeepL Authentication Key</label>
+              <input type="password" id="deeplKey" name="deeplKey" placeholder="Enter your DeepL API key" data-i18n-placeholder="deeplKeyPlaceholder">
+            </div>
+          </div>
+
+          <!-- Custom API Settings -->
+          <div id="custom-settings" class="provider-settings hidden">
+            <div class="form-group">
+              <label for="customUrl" data-i18n="customUrlLabel">Custom Endpoint URL</label>
+              <input type="text" id="customUrl" name="customUrl" placeholder="https://api.example.com/translate?q={text}&target={targetLang}">
+              <span class="hint"><span data-i18n="placeholders">Placeholders:</span> <code>{text}</code>, <code>{targetLang}</code></span>
+            </div>
+          </div>
+          
+        </section>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" data-i18n="saveBtn">Save Settings</button>
+          <span id="save-status" class="status-msg"></span>
+        </div>
+      </form>
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
