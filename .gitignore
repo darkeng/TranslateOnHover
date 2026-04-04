@@ -1,0 +1,21 @@
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Testing profile artifacts
+EdgeExtensionTestProfile/
+%temp%/EdgeExtensionTestProfile/
+
+# Python scripts/caches used only via development
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/
+.idea/
+
+# npm/Node (if used in future)
+node_modules/
+dist/
+build/
