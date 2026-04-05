@@ -15,20 +15,43 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 async function handleTranslation(text, settings) {
   const { provider, targetLang, deeplKey, customUrl, azureKey, azureRegion } = settings;
 
+  // 1. Storage Cache interception
+  // Sanitize for chrome local storage key format
+  const safeText = text.replace(/[^a-zA-Z0-9]/g, '').substring(0, 30);
+  const cacheKey = `tc_${provider}_${targetLang}_${safeText}_${text.length}`;
+  
+  try {
+    const data = await chrome.storage.local.get(cacheKey);
+    if (data && data[cacheKey] && data[cacheKey].originalText === text) {
+      return data[cacheKey].translatedText;
+    }
+  } catch(e) {}
+
+  // 2. Perform Network Translation
+  let result = null;
   if (provider === 'google') {
-    return await translateGoogle(text, targetLang);
+    result = await translateGoogle(text, targetLang);
   } else if (provider === 'microsoft') {
     if (!azureKey) throw new Error('Azure API key is missing. Please set it in options.');
-    return await translateMicrosoft(text, targetLang, azureKey, azureRegion);
+    result = await translateMicrosoft(text, targetLang, azureKey, azureRegion);
   } else if (provider === 'deepl') {
     if (!deeplKey) throw new Error('DeepL API key is missing. Please set it in options.');
-    return await translateDeepL(text, targetLang, deeplKey);
+    result = await translateDeepL(text, targetLang, deeplKey);
   } else if (provider === 'custom') {
     if (!customUrl) throw new Error('Custom URL is missing. Please set it in options.');
-    return await translateCustom(text, targetLang, customUrl);
+    result = await translateCustom(text, targetLang, customUrl);
+  } else {
+    throw new Error('Unknown translation provider.');
   }
-  
-  throw new Error('Unknown translation provider.');
+
+  // 3. Storing it asynchronously for next hover execution
+  if (result) {
+    try {
+      await chrome.storage.local.set({ [cacheKey]: { originalText: text, translatedText: result }});
+    } catch (e) {}
+  }
+
+  return result;
 }
 
 async function translateGoogle(text, targetLang) {

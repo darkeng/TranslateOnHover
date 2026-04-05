@@ -14,6 +14,7 @@ let isHoveringSelection = false;
 let mouseX = 0;
 let mouseY = 0;
 let hideTimeout = null;
+let loadingDelayTimer = null;
 
 // Initialization
 function init() {
@@ -210,15 +211,19 @@ function handleSelectionChange() {
 
 function showLoading(x, y) {
   clearTimeout(hideTimeout);
-  tooltipContent.innerHTML = `
-    <div class="toh-loading">
-      <div class="toh-dot"></div>
-      <div class="toh-dot"></div>
-      <div class="toh-dot"></div>
-    </div>
-  `;
-  positionTooltip(x, y);
-  tooltipElement.classList.add('toh-visible');
+  clearTimeout(loadingDelayTimer);
+  
+  loadingDelayTimer = setTimeout(() => {
+    tooltipContent.innerHTML = `
+      <div class="toh-loading">
+        <div class="toh-dot"></div>
+        <div class="toh-dot"></div>
+        <div class="toh-dot"></div>
+      </div>
+    `;
+    positionTooltip(x, y);
+    tooltipElement.classList.add('toh-visible');
+  }, 100);
 }
 
 function positionTooltip(x, y) {
@@ -244,6 +249,7 @@ function positionTooltip(x, y) {
 }
 
 function hideTooltip() {
+  clearTimeout(loadingDelayTimer);
   tooltipElement.classList.remove('toh-visible');
   currentText = ''; // Allow re-translation of same text later
 }
@@ -280,13 +286,17 @@ function requestTranslation(text) {
 }
 
 function showResult(text) {
+  clearTimeout(loadingDelayTimer);
   tooltipContent.innerHTML = text;
   tooltipContent.className = 'toh-tooltip-content';
+  tooltipElement.classList.add('toh-visible');
 }
 
 function showError(errText) {
+  clearTimeout(loadingDelayTimer);
   tooltipContent.innerHTML = errText;
   tooltipContent.className = 'toh-tooltip-content toh-tooltip-error';
+  tooltipElement.classList.add('toh-visible');
 }
 
 // Ensure init doesn't break if placed in `<head>`
