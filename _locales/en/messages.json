@@ -28,5 +28,10 @@
   "placeholders": { "message": "Placeholders:" },
   "saveBtn": { "message": "Save Settings" },
   "savedMsg": { "message": "Settings saved!" },
-  "errorContext": { "message": "Extension context invalidated. Refresh page." }
+  "errorContext": { "message": "Extension context invalidated. Refresh page." },
+  "microsoftFree": { "message": "(Free Tier)" },
+  "azureKeyLabel": { "message": "Azure Translator Key" },
+  "azureKeyPlaceholder": { "message": "Enter your Azure Key" },
+  "azureRegionLabel": { "message": "Azure Region" },
+  "azureRegionPlaceholder": { "message": "e.g. global, eastus" }
 }

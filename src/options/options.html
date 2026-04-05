@@ -65,6 +65,10 @@
                 <div class="radio-card">Google Translate <span data-i18n="googleFree">(Free)</span></div>
               </label>
               <label class="radio-label">
+                <input type="radio" name="provider" value="microsoft">
+                <div class="radio-card">Microsoft <span data-i18n="microsoftFree">(Free Tier)</span></div>
+              </label>
+              <label class="radio-label">
                 <input type="radio" name="provider" value="deepl">
                 <div class="radio-card">DeepL <span data-i18n="deeplRequired">(API Key Required)</span></div>
               </label>
@@ -72,6 +76,18 @@
                 <input type="radio" name="provider" value="custom">
                 <div class="radio-card" data-i18n="customApi">Custom API</div>
               </label>
+            </div>
+          </div>
+
+          <!-- Microsoft Settings -->
+          <div id="microsoft-settings" class="provider-settings hidden">
+            <div class="form-group">
+              <label for="azureKey" data-i18n="azureKeyLabel">Azure Translator Key</label>
+              <input type="password" id="azureKey" name="azureKey" placeholder="Enter Azure Key" data-i18n-placeholder="azureKeyPlaceholder">
+            </div>
+            <div class="form-group">
+              <label for="azureRegion" data-i18n="azureRegionLabel">Azure Region</label>
+              <input type="text" id="azureRegion" name="azureRegion" placeholder="global, eastus, etc." data-i18n-placeholder="azureRegionPlaceholder">
             </div>
           </div>
 

@@ -5,6 +5,8 @@ const defaultSettings = {
   targetLang: 'es',
   provider: 'google',
   deeplKey: '',
+  azureKey: '',
+  azureRegion: 'global',
   customUrl: ''
 };
 
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const providerRadios = document.querySelectorAll('input[name="provider"]');
   const deeplSettings = document.getElementById('deepl-settings');
   const customSettings = document.getElementById('custom-settings');
+  const microsoftSettings = document.getElementById('microsoft-settings');
   const saveStatus = document.getElementById('save-status');
 
   // Load saved settings
@@ -29,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('targetLang').value = items.targetLang;
     document.querySelector(`input[name="provider"][value="${items.provider}"]`).checked = true;
     document.getElementById('deeplKey').value = items.deeplKey;
+    document.getElementById('azureKey').value = items.azureKey;
+    document.getElementById('azureRegion').value = items.azureRegion;
     document.getElementById('customUrl').value = items.customUrl;
     
     updateProviderUI(items.provider);
@@ -42,15 +47,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function updateProviderUI(provider) {
+    deeplSettings.classList.add('hidden');
+    customSettings.classList.add('hidden');
+    microsoftSettings.classList.add('hidden');
+
     if (provider === 'deepl') {
       deeplSettings.classList.remove('hidden');
-      customSettings.classList.add('hidden');
     } else if (provider === 'custom') {
       customSettings.classList.remove('hidden');
-      deeplSettings.classList.add('hidden');
-    } else {
-      deeplSettings.classList.add('hidden');
-      customSettings.classList.add('hidden');
+    } else if (provider === 'microsoft') {
+      microsoftSettings.classList.remove('hidden');
     }
   }
 
@@ -63,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
       targetLang: document.getElementById('targetLang').value,
       provider: document.querySelector('input[name="provider"]:checked').value,
       deeplKey: document.getElementById('deeplKey').value,
+      azureKey: document.getElementById('azureKey').value,
+      azureRegion: document.getElementById('azureRegion').value,
       customUrl: document.getElementById('customUrl').value
     };
 

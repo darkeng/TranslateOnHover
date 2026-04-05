@@ -13,10 +13,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function handleTranslation(text, settings) {
-  const { provider, targetLang, deeplKey, customUrl } = settings;
+  const { provider, targetLang, deeplKey, customUrl, azureKey, azureRegion } = settings;
 
   if (provider === 'google') {
     return await translateGoogle(text, targetLang);
+  } else if (provider === 'microsoft') {
+    if (!azureKey) throw new Error('Azure API key is missing. Please set it in options.');
+    return await translateMicrosoft(text, targetLang, azureKey, azureRegion);
   } else if (provider === 'deepl') {
     if (!deeplKey) throw new Error('DeepL API key is missing. Please set it in options.');
     return await translateDeepL(text, targetLang, deeplKey);
@@ -78,6 +81,35 @@ async function translateDeepL(text, targetLang, apiKey) {
     return data.translations[0].text;
   }
   throw new Error('Failed to parse DeepL response.');
+}
+
+async function translateMicrosoft(text, targetLang, apiKey, region) {
+  const url = `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=${targetLang}`;
+  
+  const headers = {
+    'Ocp-Apim-Subscription-Key': apiKey,
+    'Content-type': 'application/json'
+  };
+  if (region && region !== 'global') {
+    headers['Ocp-Apim-Subscription-Region'] = region;
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify([{ text: text }])
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) throw new Error('Microsoft authentication failed. Check your API key and region.');
+    throw new Error(`Microsoft API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  if (data && data[0] && data[0].translations && data[0].translations[0]) {
+    return data[0].translations[0].text;
+  }
+  throw new Error('Failed to parse Microsoft Translator response.');
 }
 
 async function translateCustom(text, targetLang, customUrl) {

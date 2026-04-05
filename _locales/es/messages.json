@@ -28,5 +28,10 @@
   "placeholders": { "message": "Marcadores:" },
   "saveBtn": { "message": "Guardar Ajustes" },
   "savedMsg": { "message": "¡Ajustes guardados!" },
-  "errorContext": { "message": "Contexto de extensión inválido. Recarga la página." }
+  "errorContext": { "message": "Contexto de extensión inválido. Recarga la página." },
+  "microsoftFree": { "message": "(Nivel Gratuito)" },
+  "azureKeyLabel": { "message": "Clave Azure Translator" },
+  "azureKeyPlaceholder": { "message": "Introduce Clave Azure" },
+  "azureRegionLabel": { "message": "Región de Azure" },
+  "azureRegionPlaceholder": { "message": "ej. global, eastus" }
 }
