@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="24" fill="#2563eb" />
+  
+  <!-- Huge elegant T -->
+  <!-- A very elegant, slightly modern serif or heavy sans-serif T -->
+  <path d="M 30,34 L 98,34 L 98,46 L 70,46 L 70,102 L 58,102 L 58,46 L 30,46 Z" fill="#ffffff" />
+  
+  <!-- Mouse pointer cursor overlapping bottom right -->
+  <!-- Scaled perfectly so it doesn't get lost, pointing to the T -->
+  <g transform="translate(74, 70) scale(1.6)">
+    <!-- Drop Shadow -->
+    <polygon points="0,0 0,16 4,12 8,20 12,18 8,10 14,10" fill="#0f172a" opacity="0.3" transform="translate(1.5, 2.5)"/>
+    
+    <!-- Crisp White Pointer with Dark Slate Outline -->
+    <polygon points="0,0 0,16 4,12 8,20 12,18 8,10 14,10" fill="#ffffff" stroke="#0f172a" stroke-width="1.8" stroke-linejoin="round"/>
+  </g>
+</svg>
