@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 async function generateIcons() {
-  const svgPath = path.join(__dirname, 'assets', 'icon.svg');
-  if (!fs.existsSync(svgPath)) {
-    console.error("icon.svg not found in assets/");
+  const sourcePath = path.join(__dirname, 'assets', 'icon.png');
+  if (!fs.existsSync(sourcePath)) {
+    console.error("icon.png not found in assets/");
     process.exit(1);
   }
 
@@ -13,7 +13,7 @@ async function generateIcons() {
   
   for (const size of sizes) {
     const outPath = path.join(__dirname, 'assets', `icon${size}.png`);
-    await sharp(svgPath)
+    await sharp(sourcePath)
       .resize(size, size)
       // Setting density to ensure scalable conversion maintains extreme crispness
       .png({ quality: 100 })
