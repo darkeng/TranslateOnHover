@@ -99,32 +99,59 @@ function getHoverText(x, y) {
   if (range && range.startContainer) {
     const node = range.startContainer;
     
-    if (node.nodeType === 3) { // Node.TEXT_NODE
-      const text = node.nodeValue;
-      const offset = range.startOffset;
-
-      const regex = /[\.\n;!\?]/g;
-      let match;
-      let start = 0;
-      let end = text.length;
-
-      while ((match = regex.exec(text)) !== null) {
-        if (match.index < offset) {
-          start = match.index + 1;
-        } else if (match.index >= offset && end === text.length) {
-          end = match.index + 1;
+    // Find the enclosing block element to extract the full logical sentence
+    let blockParent = node;
+    while (blockParent && blockParent.parentNode && blockParent !== document.body) {
+      if (blockParent.nodeType === 1) {
+        const display = window.getComputedStyle(blockParent).display;
+        // Stop going up if we hit a non-inline element (like p, div, li)
+        if (!display.includes('inline') && display !== 'contents') {
           break;
         }
       }
+      blockParent = blockParent.parentNode;
+    }
 
-      const sentence = text.substring(start, end).trim();
-      if (sentence.length > 0) {
-        return { isHovering: true, text: sentence };
+    if (blockParent) {
+      let fullText = '';
+      let globalOffset = -1;
+
+      function walk(n) {
+        if (n.nodeType === 3) { // TEXT_NODE
+          if (n === node) {
+            globalOffset = fullText.length + range.startOffset;
+          }
+          fullText += n.nodeValue;
+        } else if (n.nodeType === 1) { // ELEMENT_NODE
+          // Do not extract text from scripts or styles
+          if (n.tagName === 'SCRIPT' || n.tagName === 'STYLE') return;
+          for (let child = n.firstChild; child; child = child.nextSibling) {
+            walk(child);
+          }
+        }
       }
-    } else if (node.innerText) {
-      const val = node.innerText.trim();
-      if (val.length > 0 && val.length < 200) {
-        return { isHovering: true, text: val };
+      walk(blockParent);
+
+      if (globalOffset !== -1) {
+        const regex = /[\.\n;!\?]/g;
+        let match;
+        let start = 0;
+        let end = fullText.length;
+
+        while ((match = regex.exec(fullText)) !== null) {
+          if (match.index < globalOffset) {
+            start = match.index + 1;
+          } else if (match.index >= globalOffset && end === fullText.length) {
+            end = match.index + 1;
+            break;
+          }
+        }
+
+        const sentence = fullText.substring(start, end).trim();
+        // Prevent huge translations if block parent is massive
+        if (sentence.length > 0 && sentence.length < 800) {
+          return { isHovering: true, text: sentence };
+        }
       }
     }
   }
