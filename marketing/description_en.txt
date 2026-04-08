@@ -1,0 +1,5 @@
+Translate On Hover is a minimalist, open-source browser extension designed for fast and seamless in-line translation. Instead of opening new tabs or navigating heavy menus, simply hold down your preferred modifier key (such as Ctrl, Shift, or Alt) and hover your cursor over any text. 
+
+The extension uses a DOM-parsing sentence detection algorithm to capture the exact phrasing you are reading and displays an elegant, non-intrusive 'glassmorphism' tooltip containing the translation right over your cursor. 
+
+Built entirely with performance and privacy in mind, it features a persistent local caching engine that bypasses repeated network calls, resulting in an instantaneous 0ms latency for hovering over text you've already translated. The extension operates entirely locally and does not collect or transmit telemetry. Out of the box, it connects securely to the free public Google Translate API, while giving power users the flexibility to configure their own premium Microsoft Azure Translator or DeepL API keys from within the option settings.
