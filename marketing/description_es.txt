@@ -1,4 +1,4 @@
-Translate On Hover es una extensión minimalista y de código abierto para navegadores Chromium, diseñada para proporcionar traducciones ultrarrápidas y fluidas sin abandonar la lectura. En lugar de copiar y pegar en otras pestañas, simplemente mantén presionada tu tecla modificadora preferida (Ctrl, Shift o Alt) y pasa tu ratón sobre cualquier texto en la pantalla. 
+Translate On Hover es una extensión minimalista y de código abierto para tu navegador web favorito, diseñada para proporcionar traducciones ultrarrápidas y fluidas sin abandonar la lectura. En lugar de copiar y pegar en otras pestañas, simplemente mantén presionada tu tecla modificadora preferida (Ctrl, Shift o Alt) y pasa tu ratón sobre cualquier texto en la pantalla. 
 
 La herramienta utiliza un algoritmo de recolección de nodos capaz de detectar inteligentemente la oración o fragmento que estás señalando para presentarte la traducción en una elegante burbuja flotante (con estilo gráfico de glassmorphism), directamente donde tienes puesta la mirada. 
 
