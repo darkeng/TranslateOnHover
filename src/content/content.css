@@ -51,27 +51,17 @@
   color: #ef4444;
 }
 
-/* Loading Animation */
-.toh-loading {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 0;
+/* Skeleton Loading Animation */
+.toh-skeleton {
+  color: transparent !important; /* Hide the physical text */
+  background-color: var(--toh-border); /* Muted block color mimicking text geometry */
+  border-radius: 3px;
+  animation: toh-pulse 1.4s infinite ease-in-out;
+  display: inline;
 }
 
-.toh-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--toh-accent);
-  border-radius: 50%;
-  animation: toh-bounce 1.4s infinite ease-in-out both;
-}
-
-.toh-dot:nth-child(1) { animation-delay: -0.32s; }
-.toh-dot:nth-child(2) { animation-delay: -0.16s; }
-
-@keyframes toh-bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
+@keyframes toh-pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.7; }
 }

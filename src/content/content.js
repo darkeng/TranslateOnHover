@@ -190,7 +190,7 @@ function handleMouseMove(e) {
       if (tooltipElement.classList.contains('toh-visible') && hoverState.text === currentText) return;
       
       currentText = hoverState.text;
-      showLoading(e.pageX, e.pageY);
+      showLoading(e.pageX, e.pageY, currentText);
       requestTranslation(currentText);
     }
   } else {
@@ -209,18 +209,13 @@ function handleSelectionChange() {
   }
 }
 
-function showLoading(x, y) {
+function showLoading(x, y, textToWrap) {
   clearTimeout(hideTimeout);
   clearTimeout(loadingDelayTimer);
   
   loadingDelayTimer = setTimeout(() => {
-    tooltipContent.innerHTML = `
-      <div class="toh-loading">
-        <div class="toh-dot"></div>
-        <div class="toh-dot"></div>
-        <div class="toh-dot"></div>
-      </div>
-    `;
+    tooltipContent.innerHTML = `<span class="toh-skeleton"></span>`;
+    tooltipContent.querySelector('.toh-skeleton').textContent = textToWrap;
     positionTooltip(x, y);
     tooltipElement.classList.add('toh-visible');
   }, 100);
