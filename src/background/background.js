@@ -13,12 +13,28 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function handleTranslation(text, settings) {
-  const { provider, targetLang, deeplKey, customUrl, azureKey, azureRegion } = settings;
+  const { provider, targetLang, deeplKey, customUrl, azureKey, azureRegion, autoReverse, altLang } = settings;
+
+  let finalTargetLang = targetLang;
+
+  // 0. Auto-Reverse Bi-Directional Detection
+  if (autoReverse && chrome.i18n && chrome.i18n.detectLanguage) {
+    try {
+      const detection = await new Promise(resolve => chrome.i18n.detectLanguage(text, resolve));
+      if (detection && detection.isReliable && detection.languages && detection.languages.length > 0) {
+        const detected = detection.languages[0].language; // e.g. "es", "en", "zh"
+        // If detected language matches the primary target language, flip to the alternative language
+        if (targetLang.toLowerCase().startsWith(detected.toLowerCase())) {
+          finalTargetLang = altLang || 'en';
+        }
+      }
+    } catch(e) {}
+  }
 
   // 1. Storage Cache interception
   // Sanitize for chrome local storage key format
   const safeText = text.replace(/[^a-zA-Z0-9]/g, '').substring(0, 30);
-  const cacheKey = `tc_${provider}_${targetLang}_${safeText}_${text.length}`;
+  const cacheKey = `tc_${provider}_${finalTargetLang}_${safeText}_${text.length}`;
   
   try {
     const data = await chrome.storage.local.get(cacheKey);
@@ -30,16 +46,16 @@ async function handleTranslation(text, settings) {
   // 2. Perform Network Translation
   let result = null;
   if (provider === 'google') {
-    result = await translateGoogle(text, targetLang);
+    result = await translateGoogle(text, finalTargetLang);
   } else if (provider === 'microsoft') {
     if (!azureKey) throw new Error('Azure API key is missing. Please set it in options.');
-    result = await translateMicrosoft(text, targetLang, azureKey, azureRegion);
+    result = await translateMicrosoft(text, finalTargetLang, azureKey, azureRegion);
   } else if (provider === 'deepl') {
     if (!deeplKey) throw new Error('DeepL API key is missing. Please set it in options.');
-    result = await translateDeepL(text, targetLang, deeplKey);
+    result = await translateDeepL(text, finalTargetLang, deeplKey);
   } else if (provider === 'custom') {
     if (!customUrl) throw new Error('Custom URL is missing. Please set it in options.');
-    result = await translateCustom(text, targetLang, customUrl);
+    result = await translateCustom(text, finalTargetLang, customUrl);
   } else {
     throw new Error('Unknown translation provider.');
   }

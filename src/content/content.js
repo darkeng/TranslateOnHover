@@ -1,10 +1,13 @@
-// State and Settings
 let settings = {
   modifier: 'ctrl',
   targetLang: 'es',
   provider: 'google',
   deeplKey: '',
-  customUrl: ''
+  azureKey: '',
+  azureRegion: 'global',
+  customUrl: '',
+  autoReverse: false,
+  altLang: 'en'
 };
 
 let tooltipElement = null;

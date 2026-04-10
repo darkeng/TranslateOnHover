@@ -7,7 +7,9 @@ const defaultSettings = {
   deeplKey: '',
   azureKey: '',
   azureRegion: 'global',
-  customUrl: ''
+  customUrl: '',
+  autoReverse: false,
+  altLang: 'en'
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -36,6 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('azureRegion').value = items.azureRegion;
     document.getElementById('customUrl').value = items.customUrl;
     
+    // Auto-Reverse settings
+    const autoReverseCheckbox = document.getElementById('autoReverse');
+    const altLangGroup = document.getElementById('altLang-group');
+    
+    autoReverseCheckbox.checked = items.autoReverse;
+    document.getElementById('altLang').value = items.altLang;
+    altLangGroup.style.display = items.autoReverse ? 'block' : 'none';
+    
+    autoReverseCheckbox.addEventListener('change', (e) => {
+      altLangGroup.style.display = e.target.checked ? 'block' : 'none';
+    });
+
     updateProviderUI(items.provider);
   });
 
@@ -71,7 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
       deeplKey: document.getElementById('deeplKey').value,
       azureKey: document.getElementById('azureKey').value,
       azureRegion: document.getElementById('azureRegion').value,
-      customUrl: document.getElementById('customUrl').value
+      customUrl: document.getElementById('customUrl').value,
+      autoReverse: document.getElementById('autoReverse').checked,
+      altLang: document.getElementById('altLang').value
     };
 
     chrome.storage.sync.set(settings, () => {
