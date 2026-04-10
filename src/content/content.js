@@ -13,6 +13,8 @@ let currentText = '';
 let isHoveringSelection = false;
 let mouseX = 0;
 let mouseY = 0;
+let lockedX = 0;
+let lockedY = 0;
 let hideTimeout = null;
 let loadingDelayTimer = null;
 
@@ -190,7 +192,9 @@ function handleMouseMove(e) {
       if (tooltipElement.classList.contains('toh-visible') && hoverState.text === currentText) return;
       
       currentText = hoverState.text;
-      showLoading(e.pageX, e.pageY, currentText);
+      lockedX = e.pageX;
+      lockedY = e.pageY;
+      showLoading(lockedX, lockedY, currentText);
       requestTranslation(currentText);
     }
   } else {
@@ -271,8 +275,8 @@ function requestTranslation(text) {
 
       if (response.success) {
         showResult(response.result);
-        // Reposition after content loads since size may change
-        positionTooltip(mouseX + window.scrollX, mouseY + window.scrollY);
+        // Reposition after content loads since size may change, strictly anchored to locked coords
+        positionTooltip(lockedX, lockedY);
       } else {
         showError(response.error);
       }
