@@ -33,5 +33,8 @@
   "azureKeyLabel": { "message": "Clave Azure Translator" },
   "azureKeyPlaceholder": { "message": "Introduce Clave Azure" },
   "azureRegionLabel": { "message": "Región de Azure" },
-  "azureRegionPlaceholder": { "message": "ej. global, eastus" }
+  "azureRegionPlaceholder": { "message": "ej. global, eastus" },
+  "autoReverseLabel": { "message": "Reverso Automático" },
+  "autoReverseHint": { "message": "Traduce de vuelta hacia el Idioma Alterno si el motor identifica que las palabras ya se encuentran en tu Idioma de Destino." },
+  "altLanguage": { "message": "Idioma Alterno" }
 }

@@ -33,5 +33,8 @@
   "azureKeyLabel": { "message": "Azure Translator Key" },
   "azureKeyPlaceholder": { "message": "Enter your Azure Key" },
   "azureRegionLabel": { "message": "Azure Region" },
-  "azureRegionPlaceholder": { "message": "e.g. global, eastus" }
+  "azureRegionPlaceholder": { "message": "e.g. global, eastus" },
+  "autoReverseLabel": { "message": "Auto-Reverse Translation" },
+  "autoReverseHint": { "message": "Automatically translate back to an alternative language if reading text natively in your Target Language." },
+  "altLanguage": { "message": "Alternative Language" }
 }
