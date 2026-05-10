@@ -15,7 +15,7 @@
   "author": "darkeng",
   "license": "MIT",
   "devDependencies": {
-    "archiver": "^7.0.1",
+    "archiver": "^8.0.0",
     "esbuild": "^0.28.0",
     "sharp": "^0.34.5"
   }
