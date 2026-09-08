@@ -76,6 +76,11 @@ async function translateGoogle(text, targetLang) {
   const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
   
   const response = await fetch(url);
+  if (response.status === 429) {
+    // The public endpoint rate-limits by IP; the on-device engine has no quota.
+    throw new Error(chrome.i18n.getMessage('errorGoogleRateLimit') ||
+      'Google rate limit reached (429). Switch to the Browser engine in options.');
+  }
   if (!response.ok) throw new Error(`Google Translate API error: ${response.status}`);
   
   const data = await response.json();

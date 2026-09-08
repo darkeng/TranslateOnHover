@@ -295,3 +295,69 @@ select:focus {
 .status-msg.success {
   color: var(--success);
 }
+
+.native-status {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+}
+
+.native-status.success {
+  color: var(--success);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.native-status.error {
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.4);
+}
+
+.btn.secondary {
+  background: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+}
+
+.btn.secondary:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn.secondary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn.link {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  text-decoration: underline;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.btn.link:hover {
+  color: var(--accent);
+}
+
+.native-report {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}

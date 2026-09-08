@@ -85,6 +85,10 @@
             <label data-i18n="serviceLabel">Service</label>
             <div class="radio-group">
               <label class="radio-label">
+                <input type="radio" name="provider" value="browser">
+                <div class="radio-card"><span data-i18n="browserNative">Browser</span> <span data-i18n="browserFree">(On-device)</span></div>
+              </label>
+              <label class="radio-label">
                 <input type="radio" name="provider" value="google" checked>
                 <div class="radio-card">Google Translate <span data-i18n="googleFree">(Free)</span></div>
               </label>
@@ -100,6 +104,32 @@
                 <input type="radio" name="provider" value="custom">
                 <div class="radio-card" data-i18n="customApi">Custom API</div>
               </label>
+            </div>
+          </div>
+
+          <!-- Browser (on-device) Settings -->
+          <div id="browser-settings" class="provider-settings hidden">
+            <div class="form-group">
+              <label for="nativeSource" data-i18n="browserSourceLabel">Language pack to prepare</label>
+              <select id="nativeSource">
+                <option value="en" data-i18n="langEnglish">English</option>
+                <option value="es" data-i18n="langSpanish">Spanish</option>
+                <option value="fr" data-i18n="langFrench">French</option>
+                <option value="de" data-i18n="langGerman">German</option>
+                <option value="it" data-i18n="langItalian">Italian</option>
+                <option value="pt" data-i18n="langPortuguese">Portuguese</option>
+                <option value="ja" data-i18n="langJapanese">Japanese</option>
+                <option value="ko" data-i18n="langKorean">Korean</option>
+                <option value="zh-CN" data-i18n="langChinese">Chinese (Simplified)</option>
+              </select>
+              <span class="hint" data-i18n="browserHint">Translation runs entirely on your device: no API keys, no rate limits, works offline. Each language pair needs a one-time download.</span>
+            </div>
+            <div class="form-group">
+              <div id="native-status" class="native-status"></div>
+              <button type="button" id="native-open-tab" class="btn secondary hidden" data-i18n="browserOpenTabBtn">Open in a tab to download</button>
+              <button type="button" id="native-download" class="btn secondary hidden" data-i18n="browserDownloadBtn">Download language pack</button>
+              <button type="button" id="native-diagnose" class="btn link" data-i18n="browserDiagnoseBtn">Run diagnostics</button>
+              <pre id="native-report" class="native-report hidden"></pre>
             </div>
           </div>
 

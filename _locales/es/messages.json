@@ -1,40 +1,200 @@
 {
-  "appName": { "message": "Translate On Hover" },
-  "appDesc": { "message": "Traduce cualquier texto al instante con solo pasar el cursor por encima. Compatible con comandos del teclado y varios motores de traducción." },
-  "optionsTitle": { "message": "Opciones de Translate On Hover" },
-  "optionsDesc": { "message": "Configura tus preferencias de traducción y atajos del teclado." },
-  "interactionSettings": { "message": "Comportamiento y Atajos" },
-  "modifierKey": { "message": "Tecla de Activación" },
-  "modifierNone": { "message": "Ninguna (Traducir siempre al mover el ratón)" },
-  "modifierHint": { "message": "Mantén presionada esta tecla y pasa el cursor sobre cualquier texto para traducirlo." },
-  "targetLanguage": { "message": "Traducir al" },
-  "langSpanish": { "message": "Español" },
-  "langEnglish": { "message": "Inglés" },
-  "langFrench": { "message": "Francés" },
-  "langGerman": { "message": "Alemán" },
-  "langItalian": { "message": "Italiano" },
-  "langPortuguese": { "message": "Portugués" },
-  "langJapanese": { "message": "Japonés" },
-  "langKorean": { "message": "Coreano" },
-  "langChinese": { "message": "Chino (Simplificado)" },
-  "translationProvider": { "message": "Motor de Traducción" },
-  "serviceLabel": { "message": "Servicio a utilizar" },
-  "googleFree": { "message": "(Uso Gratuito)" },
-  "deeplRequired": { "message": "(Requiere agregar tu propia API Key)" },
-  "customApi": { "message": "Servidor Personalizado" },
-  "deeplKeyLabel": { "message": "Clave de acceso API de DeepL" },
-  "deeplKeyPlaceholder": { "message": "Escribe aquí tu clave de acceso" },
-  "customUrlLabel": { "message": "Dirección URL del enlace" },
-  "placeholders": { "message": "Variables disponibles:" },
-  "saveBtn": { "message": "Guardar Cambios" },
-  "savedMsg": { "message": "¡Cambios guardados con éxito!" },
-  "errorContext": { "message": "La extensión se actualizó de fondo. Por favor, recarga esta página (F5)." },
-  "microsoftFree": { "message": "(Capa Gratuita de Azure)" },
-  "azureKeyLabel": { "message": "Clave de Servicio Azure" },
-  "azureKeyPlaceholder": { "message": "Escribe la clave de tu cuenta Azure" },
-  "azureRegionLabel": { "message": "Región del Servidor" },
-  "azureRegionPlaceholder": { "message": "Ejemplo: global, eastus" },
-  "autoReverseLabel": { "message": "Traducción Bidireccional Inteligente" },
-  "autoReverseHint": { "message": "Si la página que visitas ya está en tu idioma principal, la extensión traducirá el texto automáticamente hacia tu idioma secundario." },
-  "altLanguage": { "message": "Idioma Secundario" }
+  "appName": {
+    "message": "Translate On Hover"
+  },
+  "appDesc": {
+    "message": "Traduce cualquier texto pasando el cursor por encima. Incluye un motor local que funciona sin internet y sin límites de uso."
+  },
+  "optionsTitle": {
+    "message": "Opciones de Translate On Hover"
+  },
+  "optionsDesc": {
+    "message": "Configura tus preferencias de traducción y atajos del teclado."
+  },
+  "interactionSettings": {
+    "message": "Comportamiento y Atajos"
+  },
+  "modifierKey": {
+    "message": "Tecla de Activación"
+  },
+  "modifierNone": {
+    "message": "Ninguna (Traducir siempre al mover el ratón)"
+  },
+  "modifierHint": {
+    "message": "Mantén presionada esta tecla y pasa el cursor sobre cualquier texto para traducirlo."
+  },
+  "targetLanguage": {
+    "message": "Traducir al"
+  },
+  "langSpanish": {
+    "message": "Español"
+  },
+  "langEnglish": {
+    "message": "Inglés"
+  },
+  "langFrench": {
+    "message": "Francés"
+  },
+  "langGerman": {
+    "message": "Alemán"
+  },
+  "langItalian": {
+    "message": "Italiano"
+  },
+  "langPortuguese": {
+    "message": "Portugués"
+  },
+  "langJapanese": {
+    "message": "Japonés"
+  },
+  "langKorean": {
+    "message": "Coreano"
+  },
+  "langChinese": {
+    "message": "Chino (Simplificado)"
+  },
+  "translationProvider": {
+    "message": "Motor de Traducción"
+  },
+  "serviceLabel": {
+    "message": "Servicio a utilizar"
+  },
+  "googleFree": {
+    "message": "(Uso Gratuito)"
+  },
+  "deeplRequired": {
+    "message": "(Requiere agregar tu propia API Key)"
+  },
+  "customApi": {
+    "message": "Servidor Personalizado"
+  },
+  "deeplKeyLabel": {
+    "message": "Clave de acceso API de DeepL"
+  },
+  "deeplKeyPlaceholder": {
+    "message": "Escribe aquí tu clave de acceso"
+  },
+  "customUrlLabel": {
+    "message": "Dirección URL del enlace"
+  },
+  "placeholders": {
+    "message": "Variables disponibles:"
+  },
+  "saveBtn": {
+    "message": "Guardar Cambios"
+  },
+  "savedMsg": {
+    "message": "¡Cambios guardados con éxito!"
+  },
+  "errorContext": {
+    "message": "La extensión se actualizó de fondo. Por favor, recarga esta página (F5)."
+  },
+  "microsoftFree": {
+    "message": "(Capa Gratuita de Azure)"
+  },
+  "azureKeyLabel": {
+    "message": "Clave de Servicio Azure"
+  },
+  "azureKeyPlaceholder": {
+    "message": "Escribe la clave de tu cuenta Azure"
+  },
+  "azureRegionLabel": {
+    "message": "Región del Servidor"
+  },
+  "azureRegionPlaceholder": {
+    "message": "Ejemplo: global, eastus"
+  },
+  "autoReverseLabel": {
+    "message": "Traducción Bidireccional Inteligente"
+  },
+  "autoReverseHint": {
+    "message": "Si la página que visitas ya está en tu idioma principal, la extensión traducirá el texto automáticamente hacia tu idioma secundario."
+  },
+  "altLanguage": {
+    "message": "Idioma Secundario"
+  },
+  "browserNative": {
+    "message": "Navegador"
+  },
+  "browserFree": {
+    "message": "(En tu equipo)"
+  },
+  "browserSourceLabel": {
+    "message": "Paquete de idioma a preparar"
+  },
+  "browserHint": {
+    "message": "La traducción ocurre por completo en tu equipo: sin claves de API, sin límites de uso y funciona sin internet. Los paquetes se descargan solos la primera vez que pasas el cursor, así que esta sección solo sirve para dejar uno listo por adelantado."
+  },
+  "browserDownloadBtn": {
+    "message": "Descargar paquete de idioma"
+  },
+  "nativeChecking": {
+    "message": "Verificando disponibilidad..."
+  },
+  "nativeReady": {
+    "message": "Listo. Este par ya está instalado y funciona sin conexión."
+  },
+  "nativeDownloadable": {
+    "message": "Compatible, pero aún no has descargado el paquete de idioma."
+  },
+  "nativeDownloading": {
+    "message": "Descargando paquete de idioma..."
+  },
+  "nativeSamePair": {
+    "message": "El idioma de origen y el de destino son el mismo."
+  },
+  "nativeUnavailablePair": {
+    "message": "Este par de idiomas no está disponible en el motor del navegador."
+  },
+  "nativeUnsupported": {
+    "message": "No disponible en este navegador. Necesitas Chrome 138+ o Edge 148+ en computadora."
+  },
+  "errorNativeUnsupported": {
+    "message": "La traducción local necesita Chrome 138+ o Edge 148+ en computadora."
+  },
+  "errorNativePair": {
+    "message": "Este par de idiomas no está disponible en el motor del navegador."
+  },
+  "errorNativeDownload": {
+    "message": "Todavía no está instalado este paquete de idioma."
+  },
+  "errorNativeSource": {
+    "message": "No se pudo identificar el idioma de este texto."
+  },
+  "errorGoogleRateLimit": {
+    "message": "Google alcanzó su límite de uso (429). Cambia al motor del Navegador en las opciones para traducir sin límites."
+  },
+  "nativePreparing": {
+    "message": "Preparando el motor de traducción del navegador..."
+  },
+  "nativeRetryHint": {
+    "message": "El navegador aún está preparando su motor de traducción. Espera un minuto e inténtalo de nuevo."
+  },
+  "browserOpenTabBtn": {
+    "message": "Abrir en una pestaña para descargar"
+  },
+  "browserDiagnoseBtn": {
+    "message": "Ejecutar diagnóstico"
+  },
+  "nativeNeedsTab": {
+    "message": "El paquete de idioma debe descargarse desde una pestaña completa: esta ventana emergente se cierra apenas pierde el foco."
+  },
+  "nativeTimeout": {
+    "message": "La descarga no respondió. Revisa tu conexión e inténtalo de nuevo."
+  },
+  "tooltipDownload": {
+    "message": "Descargar"
+  },
+  "tooltipDownloading": {
+    "message": "Descargando"
+  },
+  "tooltipOneTime": {
+    "message": "Descarga única, después funciona sin internet"
+  },
+  "errorNativeDownloadFailed": {
+    "message": "No se pudo descargar el paquete de idioma."
+  },
+  "tooltipPreparing": {
+    "message": "Preparando el motor..."
+  }
 }

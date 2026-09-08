@@ -1,40 +1,200 @@
 {
-  "appName": { "message": "Translate On Hover" },
-  "appDesc": { "message": "Translate selected text by hovering over it, with customizable modifier keys and translation services." },
-  "optionsTitle": { "message": "Translate On Hover" },
-  "optionsDesc": { "message": "Configure your translation preferences and modifiers." },
-  "interactionSettings": { "message": "Interaction Settings" },
-  "modifierKey": { "message": "Modifier Key" },
-  "modifierNone": { "message": "None (Always translate on hover)" },
-  "modifierHint": { "message": "Hold this key while hovering over text to translate." },
-  "targetLanguage": { "message": "Target Language" },
-  "langSpanish": { "message": "Spanish" },
-  "langEnglish": { "message": "English" },
-  "langFrench": { "message": "French" },
-  "langGerman": { "message": "German" },
-  "langItalian": { "message": "Italian" },
-  "langPortuguese": { "message": "Portuguese" },
-  "langJapanese": { "message": "Japanese" },
-  "langKorean": { "message": "Korean" },
-  "langChinese": { "message": "Chinese (Simplified)" },
-  "translationProvider": { "message": "Translation Provider" },
-  "serviceLabel": { "message": "Service" },
-  "googleFree": { "message": "(Free)" },
-  "deeplRequired": { "message": "(API Key Required)" },
-  "customApi": { "message": "Custom API" },
-  "deeplKeyLabel": { "message": "DeepL Authentication Key" },
-  "deeplKeyPlaceholder": { "message": "Enter your DeepL API key" },
-  "customUrlLabel": { "message": "Custom Endpoint URL" },
-  "placeholders": { "message": "Placeholders:" },
-  "saveBtn": { "message": "Save Settings" },
-  "savedMsg": { "message": "Settings saved!" },
-  "errorContext": { "message": "Extension context invalidated. Refresh page." },
-  "microsoftFree": { "message": "(Free Tier)" },
-  "azureKeyLabel": { "message": "Azure Translator Key" },
-  "azureKeyPlaceholder": { "message": "Enter your Azure Key" },
-  "azureRegionLabel": { "message": "Azure Region" },
-  "azureRegionPlaceholder": { "message": "e.g. global, eastus" },
-  "autoReverseLabel": { "message": "Auto-Reverse Translation" },
-  "autoReverseHint": { "message": "Automatically translate back to an alternative language if reading text natively in your Target Language." },
-  "altLanguage": { "message": "Alternative Language" }
+  "appName": {
+    "message": "Translate On Hover"
+  },
+  "appDesc": {
+    "message": "Translate text just by hovering over it. Includes an on-device engine that works offline with no API keys and no rate limits."
+  },
+  "optionsTitle": {
+    "message": "Translate On Hover"
+  },
+  "optionsDesc": {
+    "message": "Configure your translation preferences and modifiers."
+  },
+  "interactionSettings": {
+    "message": "Interaction Settings"
+  },
+  "modifierKey": {
+    "message": "Modifier Key"
+  },
+  "modifierNone": {
+    "message": "None (Always translate on hover)"
+  },
+  "modifierHint": {
+    "message": "Hold this key while hovering over text to translate."
+  },
+  "targetLanguage": {
+    "message": "Target Language"
+  },
+  "langSpanish": {
+    "message": "Spanish"
+  },
+  "langEnglish": {
+    "message": "English"
+  },
+  "langFrench": {
+    "message": "French"
+  },
+  "langGerman": {
+    "message": "German"
+  },
+  "langItalian": {
+    "message": "Italian"
+  },
+  "langPortuguese": {
+    "message": "Portuguese"
+  },
+  "langJapanese": {
+    "message": "Japanese"
+  },
+  "langKorean": {
+    "message": "Korean"
+  },
+  "langChinese": {
+    "message": "Chinese (Simplified)"
+  },
+  "translationProvider": {
+    "message": "Translation Provider"
+  },
+  "serviceLabel": {
+    "message": "Service"
+  },
+  "googleFree": {
+    "message": "(Free)"
+  },
+  "deeplRequired": {
+    "message": "(API Key Required)"
+  },
+  "customApi": {
+    "message": "Custom API"
+  },
+  "deeplKeyLabel": {
+    "message": "DeepL Authentication Key"
+  },
+  "deeplKeyPlaceholder": {
+    "message": "Enter your DeepL API key"
+  },
+  "customUrlLabel": {
+    "message": "Custom Endpoint URL"
+  },
+  "placeholders": {
+    "message": "Placeholders:"
+  },
+  "saveBtn": {
+    "message": "Save Settings"
+  },
+  "savedMsg": {
+    "message": "Settings saved!"
+  },
+  "errorContext": {
+    "message": "Extension context invalidated. Refresh page."
+  },
+  "microsoftFree": {
+    "message": "(Free Tier)"
+  },
+  "azureKeyLabel": {
+    "message": "Azure Translator Key"
+  },
+  "azureKeyPlaceholder": {
+    "message": "Enter your Azure Key"
+  },
+  "azureRegionLabel": {
+    "message": "Azure Region"
+  },
+  "azureRegionPlaceholder": {
+    "message": "e.g. global, eastus"
+  },
+  "autoReverseLabel": {
+    "message": "Auto-Reverse Translation"
+  },
+  "autoReverseHint": {
+    "message": "Automatically translate back to an alternative language if reading text natively in your Target Language."
+  },
+  "altLanguage": {
+    "message": "Alternative Language"
+  },
+  "browserNative": {
+    "message": "Browser"
+  },
+  "browserFree": {
+    "message": "(On-device)"
+  },
+  "browserSourceLabel": {
+    "message": "Language pack to prepare"
+  },
+  "browserHint": {
+    "message": "Translation runs entirely on your device: no API keys, no rate limits, and it works offline. Language packs download by themselves the first time you hover, so this section is only needed to prepare one in advance."
+  },
+  "browserDownloadBtn": {
+    "message": "Download language pack"
+  },
+  "nativeChecking": {
+    "message": "Checking availability..."
+  },
+  "nativeReady": {
+    "message": "Ready. This pair is installed and works offline."
+  },
+  "nativeDownloadable": {
+    "message": "Supported, but the language pack is not installed yet."
+  },
+  "nativeDownloading": {
+    "message": "Downloading language pack..."
+  },
+  "nativeSamePair": {
+    "message": "Source and target are the same language."
+  },
+  "nativeUnavailablePair": {
+    "message": "This language pair is not supported on-device."
+  },
+  "nativeUnsupported": {
+    "message": "Not available in this browser. Requires Chrome 138+ or Edge 148+ on desktop."
+  },
+  "errorNativeUnsupported": {
+    "message": "On-device translation requires Chrome 138+ or Edge 148+ on desktop."
+  },
+  "errorNativePair": {
+    "message": "This language pair is not supported on-device."
+  },
+  "errorNativeDownload": {
+    "message": "This language pack is not installed yet."
+  },
+  "errorNativeSource": {
+    "message": "Could not detect the source language of this text."
+  },
+  "errorGoogleRateLimit": {
+    "message": "Google hit its rate limit (429). Switch to the Browser engine in the options for unlimited translations."
+  },
+  "nativePreparing": {
+    "message": "Preparing the browser translation engine..."
+  },
+  "nativeRetryHint": {
+    "message": "The browser is still setting up its translation engine. Wait a minute and try again."
+  },
+  "browserOpenTabBtn": {
+    "message": "Open in a tab to download"
+  },
+  "browserDiagnoseBtn": {
+    "message": "Run diagnostics"
+  },
+  "nativeNeedsTab": {
+    "message": "The language pack must be downloaded from a full tab: this popup closes as soon as it loses focus."
+  },
+  "nativeTimeout": {
+    "message": "The download did not respond. Check your connection and try again."
+  },
+  "tooltipDownload": {
+    "message": "Download"
+  },
+  "tooltipDownloading": {
+    "message": "Downloading"
+  },
+  "tooltipOneTime": {
+    "message": "One-time download, then it works offline"
+  },
+  "errorNativeDownloadFailed": {
+    "message": "The language pack could not be downloaded."
+  },
+  "tooltipPreparing": {
+    "message": "Preparing engine..."
+  }
 }
