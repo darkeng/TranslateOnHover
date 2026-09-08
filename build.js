@@ -55,11 +55,16 @@ async function build() {
   }
 }
 
+// assets/icon.png is the high-res source generate_icons.js resizes from. It is
+// never referenced by the manifest, and at ~270 KB it was 85% of the package.
+const EXCLUDE_FROM_PACKAGE = new Set(['icon.png']);
+
 function copyDirRecursively(src, dest) {
   if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
   
   const entries = fs.readdirSync(src, { withFileTypes: true });
   for (let entry of entries) {
+    if (EXCLUDE_FROM_PACKAGE.has(entry.name)) continue;
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
     
