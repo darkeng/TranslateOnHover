@@ -11,6 +11,7 @@ Designed with a rich, dark-mode minimalist aesthetic—no heavy borders, zero la
 - **Blazing Fast On-Hover Translation**: Detects your mouse position and automatically captures the context of the sentence under your pointer by accurately traversing DOM elements (or translates your active selection).
 - **Customizable Triggers**: Configure whether translation requires you to hold `Ctrl`, `Shift`, `Alt`, a combination, or no key at all.
 - **Support for Multiple Providers**:
+  - **Browser (On-Device)**: Uses the browser's built-in Translator API (Chrome 138+ / Edge 148+ on desktop). Runs locally, so there are no API keys, no rate limits, no network requests, and it keeps working offline. Each language pair downloads once from the options page.
   - **Google Translate**: Built-in free endpoints with virtually zero configuration required.
   - **Microsoft Translator**: Built-in support for Azure Cognitive Services Translator API (Free F0 Tier). Requires your Azure Key and Region.
   - **DeepL API**: Top-tier translation quality if you provide your personal DeepL Authentication Key.
